@@ -10,7 +10,9 @@ class AssignDeviceToUser
   def call
     raise RegistrationError::Unauthorized unless @requesting_user.id == @new_owner_id
 
-    device = Device.find_or_create_by!(serial_number: @serial_number)
+    device = Device.find_or_create_by!(serial_number: @serial_number) do |d|
+      d.user = @requesting_user
+    end
 
     if device.user_id.present? && device.user_id != @requesting_user.id
       raise AssigningError::AlreadyUsedOnOtherUser
