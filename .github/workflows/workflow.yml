@@ -1,0 +1,21 @@
+name: workflow.yml
+on:
+  push:
+    branches: [main]
+  pull_request: []
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2.8'
+          bundler-cache: true
+
+      - name: RSpec
+        env:
+          RAILS_ENV: test
+        run:  bundle exec rspec --format progress
