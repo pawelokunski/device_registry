@@ -4,7 +4,7 @@ class ReturnDeviceFromUser
   def initialize(user:, serial_number:, from_user:)
     @user = user
     @serial_number = serial_number
-    @from_user_id = from_user
+    @from_user_id = from_user.to_i
   end
 
   def call
