@@ -8,28 +8,34 @@ class AssignDeviceToUser
   end
 
   def call
+    authorize_request!
+    device = find_or_build_device
+    validate_device_state!(device)
+    activate_device_for(device)
+    device
+  end
+
+  private
+
+  def authorize_request!
     raise RegistrationError::Unauthorized unless @requesting_user.id == @new_owner_id
+  end
 
-    device = Device.find_or_create_by!(serial_number: @serial_number) do |d|
-      d.user = @requesting_user
-    end
+  def find_or_build_device
+    Device.find_or_create_by!(serial_number: @serial_number)
+  end
 
+  def validate_device_state!(device)
     if device.user_id.present? && device.user_id != @requesting_user.id
       raise AssigningError::AlreadyUsedOnOtherUser
     end
+    return unless device.device_assignments.exists?(user_id: @requesting_user.id)
 
-    if DeviceAssignment
-       .where(device_id: device.id, user_id: @requesting_user.id)
-       .where.not(returned_at: nil)
-       .exists?
-      raise AssigningError::AlreadyUsedOnUser
-    end
+    raise AssigningError::AlreadyUsedOnUser
+  end
 
-    DeviceAssignment.transaction do
-      DeviceAssignment.create!(device: device, user: @requesting_user)
-      device.update!(user: @requesting_user)
-    end
-
-    device
+  def activate_device_for(device)
+    DeviceAssignment.create!(device:, user: @requesting_user)
+    device.update!(user: @requesting_user)
   end
 end

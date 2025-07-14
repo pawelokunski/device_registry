@@ -8,3 +8,21 @@ AllCops:
 
 Layout/LineLength:
   Max: 100
+  Exclude:
+    - 'config/**/*'
+    - 'db/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Style/Documentation:
+  Enabled: false
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+Metrics/MethodLength:
+  Max: 15
+Metrics/AbcSize:
+  Max: 25
