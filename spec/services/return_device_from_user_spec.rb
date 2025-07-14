@@ -13,9 +13,11 @@ RSpec.describe ReturnDeviceFromUser do
 
   let(:user) { create(:user) }
   let(:serial_number) { '123456' }
-  let(:device)        { AssignDeviceToUser.new(requesting_user: user,
-                                               serial_number: serial_number,
-                                               new_device_owner_id: user.id).call }
+  let(:device)        do
+    AssignDeviceToUser.new(requesting_user: user,
+                           serial_number: serial_number,
+                           new_device_owner_id: user.id).call
+  end
 
   before { device }
 
@@ -45,11 +47,12 @@ RSpec.describe ReturnDeviceFromUser do
   context 'when device is already returned' do
     let(:from_user_id) { user.id }
 
-    before { ReturnDeviceFromUser.new(user: user, serial_number: serial_number, from_user: user.id).call }
+    before do
+      ReturnDeviceFromUser.new(user: user, serial_number: serial_number, from_user: user.id).call
+    end
 
     it 'raises AlreadyReturned error' do
       expect { return_device }.to raise_error(ReturningError::AlreadyReturned)
     end
   end
 end
-

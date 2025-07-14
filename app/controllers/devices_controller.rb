@@ -5,26 +5,26 @@ class DevicesController < ApplicationController
   def assign
     AssignDeviceToUser.new(
       requesting_user: @current_user,
-      serial_number:       params.require(:device).require(:serial_number),
+      serial_number: params.require(:device).require(:serial_number),
       new_device_owner_id: params.require(:new_owner_id)
     ).call
     head :ok
   rescue RegistrationError::Unauthorized
     render json: { error: 'Unauthorized' }, status: :unprocessable_entity
   rescue AssigningError::AlreadyUsedOnOtherUser,
-    AssigningError::AlreadyUsedOnUser
+         AssigningError::AlreadyUsedOnUser
     render json: { error: 'Invalid' }, status: :unprocessable_entity
   end
 
   def unassign
     ReturnDeviceFromUser.new(
-      user:          @current_user,
+      user: @current_user,
       serial_number: params.require(:device).require(:serial_number),
-      from_user:     params.require(:from_user_id)
+      from_user: params.require(:from_user_id)
     ).call
     head :ok
   rescue RegistrationError::Unauthorized,
-    ReturningError::AlreadyReturned
+         ReturningError::AlreadyReturned
     render json: { error: 'Invalid' }, status: :unprocessable_entity
   end
 
