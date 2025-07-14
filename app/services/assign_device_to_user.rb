@@ -18,7 +18,10 @@ class AssignDeviceToUser
       raise AssigningError::AlreadyUsedOnOtherUser
     end
 
-    if device.device_assignments.where(user_id: @requesting_user.id).exists?
+    if DeviceAssignment
+         .where(device_id: device.id, user_id: @requesting_user.id)
+         .where.not(returned_at: nil)
+         .exists?
       raise AssigningError::AlreadyUsedOnUser
     end
 
