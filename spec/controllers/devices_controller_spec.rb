@@ -44,8 +44,8 @@ RSpec.describe DevicesController, type: :controller do
   describe 'POST #unassign' do
     let(:serial_number) { '123456' }
     let(:user)          { create(:user) }
-    let!(:api_key)      { create(:api_key, bearer: user) } # <= DODAŁEM
-    # urządzenie przypisane do usera
+    let!(:api_key)      { create(:api_key, bearer: user) }
+
     before do
       AssignDeviceToUser.new(
         requesting_user: user,
@@ -68,7 +68,7 @@ RSpec.describe DevicesController, type: :controller do
 
         it 'returns a success response' do
           unassign
-          expect(response).to be_successful # 200
+          expect(response).to be_successful
         end
       end
 
@@ -102,12 +102,12 @@ RSpec.describe DevicesController, type: :controller do
     end
 
     context 'when the user is not authenticated' do
-      let(:session_data) { {} } # brak tokenu
+      let(:session_data) { {} }
       let(:from_user_id) { user.id }
 
       it 'returns an unauthorized response' do
         unassign
-        expect(response).to be_unauthorized # 401
+        expect(response).to be_unauthorized
       end
     end
   end
