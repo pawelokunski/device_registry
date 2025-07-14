@@ -101,3 +101,27 @@ FOREIGN KEY ("user_id")
   [1m[36mActiveRecord::SchemaMigration Create (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ('20250714072148') RETURNING "version"[0m
   [1m[36mTRANSACTION (0.1ms)[0m  [1m[36mcommit transaction[0m
   [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/" for 127.0.0.1 at 2025-07-14 09:35:27 +0200
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /home/pawel/.rbenv/versions/3.2.8/lib/ruby/gems/3.2.0/gems/railties-7.1.3.4/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /home/pawel/.rbenv/versions/3.2.8/lib/ruby/gems/3.2.0/gems/railties-7.1.3.4/lib/rails/templates/rails/welcome/index.html.erb (Duration: 0.7ms | Allocations: 373)
+Completed 200 OK in 19ms (Views: 6.1ms | ActiveRecord: 0.0ms | Allocations: 7751)
+
+
+Started GET "/device" for 127.0.0.1 at 2025-07-14 09:35:37 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/device"):
+  
+Started GET "/favicon.ico" for 127.0.0.1 at 2025-07-14 09:35:37 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/favicon.ico"):
+  
+Started GET "/assign_path" for 127.0.0.1 at 2025-07-14 09:35:51 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/assign_path"):
+  
+Started GET "/assign_url" for 127.0.0.1 at 2025-07-14 09:36:04 +0200
+  
+ActionController::RoutingError (No route matches [GET] "/assign_url"):
+  

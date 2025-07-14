@@ -9,6 +9,10 @@ class DevicesController < ApplicationController
       new_device_owner_id: params[:new_device_owner_id]
     ).call
     head :ok
+  rescue RegistrationError::Unauthorized,
+    AssigningError::AlreadyUsedOnOtherUser,
+    AssigningError::AlreadyUsedOnUser
+    head :unprocessable_entity
   end
 
   def unassign
