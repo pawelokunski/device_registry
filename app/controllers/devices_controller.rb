@@ -17,7 +17,7 @@ class DevicesController < ApplicationController
   end
 
   def unassign
-    # TODO: implement the unassign action
+    #TODO
   end
 
   private
