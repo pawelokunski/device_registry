@@ -1,4 +1,22 @@
 # README
+## Quick start
+git clone https://github.com/pawelokunski/device_registry.git 
+
+cd device_registry
+
+rbenv install --skip-existing $(cat .ruby-version)
+
+gem install bundler
+
+bundle install
+
+bin/rails db:prepare 
+
+RAILS_ENV=test bin/rails db:prepare
+
+bundle exec rspec            
+
+## Task
 
 Your task is to implement the part of the application that helps track devices assigned to users within an organization.
 
